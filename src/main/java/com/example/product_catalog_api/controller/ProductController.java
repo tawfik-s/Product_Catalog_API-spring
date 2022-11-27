@@ -2,6 +2,7 @@ package com.example.product_catalog_api.controller;
 
 
 import com.example.product_catalog_api.entity.Product;
+import com.example.product_catalog_api.model.ProductDTO;
 import com.example.product_catalog_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,13 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public Product addProduct(@RequestBody Product product){
-        return productService.addProduct(product);
+    public Product addProduct(@RequestBody ProductDTO productDTO){
+        return productService.addProduct(productDTO);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@RequestBody Product product,@PathVariable Long id){
-        return productService.updateProduct(product,id);
+    public Product updateProduct(@RequestBody ProductDTO productDTO,@PathVariable Long id){
+        return productService.updateProduct(productDTO,id);
     }
 
     @DeleteMapping("/{id}")
