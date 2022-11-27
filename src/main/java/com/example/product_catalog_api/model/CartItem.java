@@ -30,4 +30,5 @@ public class CartItem {
     private Long quantity;
 
     private String image;
+
 }
