@@ -1,8 +1,11 @@
 package com.example.product_catalog_api.service.impl;
 
 import com.example.product_catalog_api.entity.Product;
+import com.example.product_catalog_api.mapper.ProductProductDTOMapper;
+import com.example.product_catalog_api.model.ProductDTO;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.ProductService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ public class ProductServiceImpl implements ProductService {
         this.productRepo = productRepo;
     }
 
+    private ProductProductDTOMapper productProductDTOMapper = Mappers.getMapper(ProductProductDTOMapper.class);
+
     @Override
     public List<Product> getAllProducts() {
         return productRepo.findAll();
@@ -28,22 +33,23 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findAll()
                 .stream()
                 .sorted((x, y) ->
-                (int) (y.getNumOfSoldUnits() - x.getNumOfSoldUnits())
-        ).collect(Collectors.toList());
+                        (int) (y.getNumOfSoldUnits() - x.getNumOfSoldUnits())
+                ).collect(Collectors.toList());
     }
 
     @Override
-    public Product addProduct(Product newProduct) {
+    public Product addProduct(ProductDTO productDTO) {
+        Product newProduct = productProductDTOMapper.ProductDTOToProduct(productDTO);
         newProduct.setNumOfSoldUnits(0L);
         return productRepo.save(newProduct);
     }
 
     @Override
-    public Product updateProduct(Product newProduct, Long id) {
-        productRepo.findById(id).orElseThrow(() -> new RuntimeException("not correct product id"));
-        //TODO if you not own this product you need to update it
+    public Product updateProduct(ProductDTO productDTO, Long id) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("not correct product id"));
+        Product newProduct = productProductDTOMapper.ProductDTOToProduct(productDTO);
         newProduct.setId(id);
-        newProduct.setNumOfSoldUnits(newProduct.getNumOfSoldUnits());
+        newProduct.setNumOfSoldUnits(product.getNumOfSoldUnits());
         return productRepo.save(newProduct);
     }
 

@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "name_ar")
     private String nameAr;
 
-    private Long LimitQuantity;
+    private Long limitQuantity;
 
     private Long price;
 
