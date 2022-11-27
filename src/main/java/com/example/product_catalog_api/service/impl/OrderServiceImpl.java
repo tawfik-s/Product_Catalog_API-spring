@@ -12,10 +12,12 @@ import com.example.product_catalog_api.repository.CartItemRepo;
 import com.example.product_catalog_api.repository.CartRepo;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.OrderService;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,14 +41,15 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Cart CreateOrder(CartDTO cartDTO) {
+    @Transactional
+    public Cart CreateOrder(CartDTO cartDTO)   {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(email);
 
         Customer customer = customerRepo.findByEmail(email).orElse(null);
         System.out.println(customer);
         if (customer == null) {
-            return null;
+            throw new RuntimeException("customer not found or you are not logged in");
         }
         List<CartItem> cartItemList = new ArrayList<>();
 
@@ -57,9 +60,11 @@ public class OrderServiceImpl implements OrderService {
             Long id = opd.getId();
             Long quantity = opd.getQuantity();
 
-            Product product = productRepo.findById(id).orElse(null);
-            if (product == null || product.getQuantity() < quantity) {
-                return null;
+            Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("can't find product"));
+            if (product.getQuantity() < quantity) {
+                throw new RuntimeException("there is no Quantity available");
+            } else if (product.getLimitQuantity()<quantity) {
+                throw new RuntimeException("you exceed the quantity limit");
             }
 
             product.setQuantity(product.getQuantity() - quantity);
@@ -77,14 +82,15 @@ public class OrderServiceImpl implements OrderService {
             System.out.print("2 " + cartItem2);
             cartItemList.add(cartItem2);
         }
-        cart.setCartItems(cartItemList);
+        cart.setCartItems(cartItemList); //add to cart
 
         cart = cartRepo.save(cart);
 
-        List<Cart> cartList = customer.getCarts();
+        List<Cart> cartList = customer.getCarts(); //add to customer
         if (cartList == null) {
             cartList = new ArrayList<>();
         }
+
         cartList.add(cart);
         customer.setCarts(cartList);
         customerRepo.save(customer);

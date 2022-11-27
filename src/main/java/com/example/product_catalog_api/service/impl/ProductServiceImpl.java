@@ -25,7 +25,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> getAllProductsSortedByPopularity() {
-        return productRepo.findAll().stream().sorted((x, y) ->
+        return productRepo.findAll()
+                .stream()
+                .sorted((x, y) ->
                 (int) (y.getNumOfSoldUnits() - x.getNumOfSoldUnits())
         ).collect(Collectors.toList());
     }
@@ -38,6 +40,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product newProduct, Long id) {
+        productRepo.findById(id).orElseThrow(() -> new RuntimeException("not correct product id"));
+        //TODO if you not own this product you need to update it
         newProduct.setId(id);
         newProduct.setNumOfSoldUnits(newProduct.getNumOfSoldUnits());
         return productRepo.save(newProduct);
