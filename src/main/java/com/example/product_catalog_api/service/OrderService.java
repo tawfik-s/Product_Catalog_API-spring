@@ -1,7 +1,7 @@
 package com.example.product_catalog_api.service;
 
-import com.example.product_catalog_api.dto.CartDTO;
-import com.example.product_catalog_api.model.Cart;
+import com.example.product_catalog_api.model.CartDTO;
+import com.example.product_catalog_api.entity.Cart;
 
 import java.util.List;
 

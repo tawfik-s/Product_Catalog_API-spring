@@ -1,7 +1,7 @@
 package com.example.product_catalog_api.controller;
 
 
-import com.example.product_catalog_api.model.Product;
+import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

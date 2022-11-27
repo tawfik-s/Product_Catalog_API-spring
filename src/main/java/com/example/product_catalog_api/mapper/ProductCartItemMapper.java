@@ -1,7 +1,7 @@
 package com.example.product_catalog_api.mapper;
 
-import com.example.product_catalog_api.model.CartItem;
-import com.example.product_catalog_api.model.Product;
+import com.example.product_catalog_api.entity.CartItem;
+import com.example.product_catalog_api.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -34,8 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests() // Authorizing incoming requests
                 .antMatchers("/api/auth/**").permitAll() // Allows auth requests to be made without authentication of any sort
                 .antMatchers("/api/user/**").hasRole("USER") //Allows only users with the "USER" role to make requests to the user routes
-                .antMatchers("/api/order").hasRole("USER")
-                .antMatchers("/api/product").permitAll()
+                .antMatchers("/api/order/**").hasRole("USER")
+                .antMatchers("/api/product/**").permitAll()
+                .antMatchers("/api/category/**").permitAll()
+                .antMatchers(("/api/category")).permitAll()
                 .and()
                 .userDetailsService(uds) // Setting the user details service to the custom implementation
                 .exceptionHandling()
