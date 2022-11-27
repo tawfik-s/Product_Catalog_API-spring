@@ -1,6 +1,6 @@
 package com.example.product_catalog_api.service;
 
-import com.example.product_catalog_api.model.Product;
+import com.example.product_catalog_api.entity.Product;
 
 import java.util.List;
 

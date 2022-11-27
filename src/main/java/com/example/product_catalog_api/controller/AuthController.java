@@ -1,7 +1,7 @@
 package com.example.product_catalog_api.controller;
 
-import com.example.product_catalog_api.model.Customer;
-import com.example.product_catalog_api.dto.LoginCredentials;
+import com.example.product_catalog_api.entity.Customer;
+import com.example.product_catalog_api.model.LoginCredentials;
 import com.example.product_catalog_api.repository.CustomerRepo;
 import com.example.product_catalog_api.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;

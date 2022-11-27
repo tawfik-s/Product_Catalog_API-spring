@@ -1,4 +1,4 @@
-package com.example.product_catalog_api.model;
+package com.example.product_catalog_api.entity;
 
 
 import lombok.Getter;
@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name="product")
-public class Product {
+public class CartItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,15 +25,10 @@ public class Product {
     @Column(name = "name_ar")
     private String nameAr;
 
-    private Long LimitQuantity;
-
     private Long price;
 
     private Long quantity;
 
-    private Long numOfSoldUnits;
-
     private String image;
-
 
 }

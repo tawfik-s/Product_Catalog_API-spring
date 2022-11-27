@@ -1,6 +1,6 @@
 package com.example.product_catalog_api.service.impl;
 
-import com.example.product_catalog_api.model.Product;
+import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

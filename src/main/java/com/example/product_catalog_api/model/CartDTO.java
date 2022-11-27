@@ -1,4 +1,4 @@
-package com.example.product_catalog_api.dto;
+package com.example.product_catalog_api.model;
 
 import lombok.*;
 

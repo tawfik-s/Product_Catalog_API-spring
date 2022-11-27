@@ -1,18 +1,17 @@
 package com.example.product_catalog_api.service.impl;
 
-import com.example.product_catalog_api.dto.CartDTO;
-import com.example.product_catalog_api.dto.CartItemDTO;
+import com.example.product_catalog_api.model.CartDTO;
+import com.example.product_catalog_api.model.CartItemDTO;
 import com.example.product_catalog_api.mapper.ProductCartItemMapper;
-import com.example.product_catalog_api.model.Cart;
-import com.example.product_catalog_api.model.Customer;
-import com.example.product_catalog_api.model.CartItem;
-import com.example.product_catalog_api.model.Product;
+import com.example.product_catalog_api.entity.Cart;
+import com.example.product_catalog_api.entity.Customer;
+import com.example.product_catalog_api.entity.CartItem;
+import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.repository.CustomerRepo;
 import com.example.product_catalog_api.repository.CartItemRepo;
 import com.example.product_catalog_api.repository.CartRepo;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.OrderService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

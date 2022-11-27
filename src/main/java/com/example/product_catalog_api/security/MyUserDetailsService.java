@@ -1,6 +1,6 @@
 package com.example.product_catalog_api.security;
 
-import com.example.product_catalog_api.model.Customer;
+import com.example.product_catalog_api.entity.Customer;
 import com.example.product_catalog_api.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

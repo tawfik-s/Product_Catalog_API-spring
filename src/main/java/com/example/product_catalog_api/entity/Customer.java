@@ -1,4 +1,4 @@
-package com.example.product_catalog_api.model;
+package com.example.product_catalog_api.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Customer {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name="customer_cart",joinColumns = {@JoinColumn(name="user_id")},
 //            inverseJoinColumns = {@JoinColumn(name="cart_id")})
     private List<Cart> carts;

@@ -1,4 +1,4 @@
-package com.example.product_catalog_api.model;
+package com.example.product_catalog_api.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
