@@ -19,7 +19,7 @@ public class LoginCredentials {
     private String email;
 
     @Size(min = 4, max = 255, message
-            = "email must be between 4 and 200 characters")
+            = "password must be between 4 and 200 characters")
     private String password;
 
 }

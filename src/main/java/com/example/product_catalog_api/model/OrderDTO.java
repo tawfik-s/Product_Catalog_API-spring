@@ -9,6 +9,6 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDTO {
-    private List<CartItemDTO> products;
+public class OrderDTO {
+    private List<OrderItemDTO> products;
 }

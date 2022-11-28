@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Cart {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,5 +23,5 @@ public class Cart {
     @OneToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name="cart_cart_item",joinColumns = {@JoinColumn(name="cart_id")},
 //            inverseJoinColumns = {@JoinColumn(name="cart_item_id")})
-    private List<CartItem> cartItems;
+    private List<OrderItem> orderItems;
 }

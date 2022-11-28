@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
                .orElseThrow(()->new RuntimeException("can't find Category"+categoryId));
        Product pro=productRepo.findById(productId) //check if it's exist
                .orElseThrow(()->new RuntimeException("not found product id"+productId));
-       category.getProducts().add(pro);
+        category.getProducts().add(pro);
         return category;
     }
 

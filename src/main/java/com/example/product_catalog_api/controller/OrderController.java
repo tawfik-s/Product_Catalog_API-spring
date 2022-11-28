@@ -1,7 +1,7 @@
 package com.example.product_catalog_api.controller;
 
-import com.example.product_catalog_api.model.CartDTO;
-import com.example.product_catalog_api.entity.Cart;
+import com.example.product_catalog_api.entity.Order;
+import com.example.product_catalog_api.model.OrderDTO;
 import com.example.product_catalog_api.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +20,17 @@ public class OrderController {
     }
 
     @PostMapping("/")
-    public Cart addOrder(@RequestBody CartDTO cartDTO){
-        return orderService.CreateOrder(cartDTO);
+    public Order addOrder(@RequestBody OrderDTO orderDTO){
+        return orderService.CreateOrder(orderDTO);
     }
 
     @GetMapping("/")
-    public List<Cart> getCarts(){
+    public List<Order> getOrders(){
         return orderService.getMyOrders();
     }
 
     @GetMapping("/{id}")
-    public Cart getSingleCart(@PathVariable Long id){
+    public Order getSingleOrder(@PathVariable Long id){
         return orderService.getOrder(id);
     }
 

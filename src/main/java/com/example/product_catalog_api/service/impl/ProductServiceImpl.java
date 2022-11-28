@@ -1,8 +1,10 @@
 package com.example.product_catalog_api.service.impl;
 
+import com.example.product_catalog_api.entity.Category;
 import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.mapper.ProductProductDTOMapper;
 import com.example.product_catalog_api.model.ProductDTO;
+import com.example.product_catalog_api.repository.CategoryRepo;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.ProductService;
 import org.mapstruct.factory.Mappers;
@@ -15,7 +17,11 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+
     private ProductRepo productRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
+
 
     @Autowired
     void setProductRepo(ProductRepo productRepo) {
@@ -39,9 +45,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(ProductDTO productDTO) {
+        Category category=categoryRepo
+                .findById(productDTO.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("not correct product id"));
         Product newProduct = productProductDTOMapper.ProductDTOToProduct(productDTO);
         newProduct.setNumOfSoldUnits(0L);
-        return productRepo.save(newProduct);
+        newProduct =productRepo.save(newProduct);
+        category.getProducts().add(newProduct);
+        categoryRepo.save(category);
+        return newProduct;
     }
 
     @Override

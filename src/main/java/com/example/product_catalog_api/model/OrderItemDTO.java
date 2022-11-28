@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartItemDTO {
+public class OrderItemDTO {
 
     private Long id;
     @Max(200)

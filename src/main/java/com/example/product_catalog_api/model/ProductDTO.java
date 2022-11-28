@@ -21,7 +21,9 @@ public class ProductDTO {
     private String nameAr;
 
     private Long limitQuantity;
-    
+
+    private Long categoryId;
+
     @NotNull
     private Long price;
 

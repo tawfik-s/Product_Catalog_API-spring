@@ -7,7 +7,7 @@
 - update product
 - delete product
 - buy a list of products
-- get cart details
+- get order details
 - retrieving all products ordered by popularity
 
 ## product attributes should have and not limited to:
@@ -35,7 +35,7 @@ Provide an API for
 - Create customer
 - Login
 - buy a list of products only if he is logged in
-- get cart details for his own orders only
+- get order details for his own orders only
 - Limit quantity bought by any customer for specific products (i.e: any customer not allowed to buy "Samsung A52 Mobile" more than 4 times)
 
 ## Bonus #3

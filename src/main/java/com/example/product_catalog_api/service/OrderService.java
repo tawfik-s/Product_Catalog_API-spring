@@ -1,16 +1,16 @@
 package com.example.product_catalog_api.service;
 
-import com.example.product_catalog_api.model.CartDTO;
-import com.example.product_catalog_api.entity.Cart;
+import com.example.product_catalog_api.entity.Order;
+import com.example.product_catalog_api.model.OrderDTO;
 
 import java.util.List;
 
 
 public interface OrderService {
 
-    public Cart CreateOrder(CartDTO cartDTO);
+    public Order CreateOrder(OrderDTO orderDTO);
 
-    public List<Cart> getMyOrders();
+    public List<Order> getMyOrders();
 
-    Cart getOrder(Long id);
+    Order getOrder(Long id);
 }

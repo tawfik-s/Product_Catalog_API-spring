@@ -1,6 +1,5 @@
 package com.example.product_catalog_api.mapper;
 
-import com.example.product_catalog_api.entity.CartItem;
 import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.model.ProductDTO;
 import org.mapstruct.Mapper;
