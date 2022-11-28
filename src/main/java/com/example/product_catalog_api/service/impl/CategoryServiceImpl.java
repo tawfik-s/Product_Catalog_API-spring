@@ -63,4 +63,9 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(()->new RuntimeException("can't find Category"+categoryId));
         return category.getProducts();
     }
+
+    @Override
+    public void deleteCategory(Long id) {
+        categoryRepo.deleteById(id);
+    }
 }

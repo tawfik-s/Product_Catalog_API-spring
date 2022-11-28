@@ -18,4 +18,5 @@ public interface CategoryService {
 
     public List<Product> getAllProductsInCategory(Long categoryId);
 
+    void deleteCategory(Long id);
 }
