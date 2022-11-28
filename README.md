@@ -29,6 +29,9 @@ spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
 spring.datasource.username=system
 spring.datasource.password=system
 ```
+### project entity diagram
+
+![entity diagram](./images/entity%20diagram.png)
 
 ### run the project
 
@@ -39,3 +42,7 @@ spring.datasource.password=system
 
 - clean create jar `mvn clean install`
 - run this jar `java -jar <jar file name>`
+
+### project class diagram
+
+![class diagram](./images/product_catalog_api_class_diagram.png)
