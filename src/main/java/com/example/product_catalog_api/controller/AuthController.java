@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class AuthController {
     @Autowired private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public Map<String, Object> registerHandler(@RequestBody Customer customer){
+    public Map<String, Object> registerHandler(@Valid @RequestBody Customer customer){
         String encodedPass = passwordEncoder.encode(customer.getPassword());
 
         customer.setPassword(encodedPass);
@@ -41,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> loginHandler(@RequestBody LoginCredentials body){
+    public Map<String, Object> loginHandler(@Valid @RequestBody LoginCredentials body){
         try {
 
             UsernamePasswordAuthenticationToken authInputToken =

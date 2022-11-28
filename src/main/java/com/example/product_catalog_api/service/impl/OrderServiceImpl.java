@@ -1,15 +1,15 @@
 package com.example.product_catalog_api.service.impl;
 
-import com.example.product_catalog_api.model.CartDTO;
-import com.example.product_catalog_api.model.CartItemDTO;
+import com.example.product_catalog_api.entity.OrderItem;
+import com.example.product_catalog_api.model.OrderDTO;
+import com.example.product_catalog_api.model.OrderItemDTO;
 import com.example.product_catalog_api.mapper.ProductCartItemMapper;
-import com.example.product_catalog_api.entity.Cart;
+import com.example.product_catalog_api.entity.Order;
 import com.example.product_catalog_api.entity.Customer;
-import com.example.product_catalog_api.entity.CartItem;
 import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.repository.CustomerRepo;
-import com.example.product_catalog_api.repository.CartItemRepo;
-import com.example.product_catalog_api.repository.CartRepo;
+import com.example.product_catalog_api.repository.OrderItemRepo;
+import com.example.product_catalog_api.repository.OrderRepo;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.OrderService;
 import org.mapstruct.factory.Mappers;
@@ -33,15 +33,15 @@ public class OrderServiceImpl implements OrderService {
     private ProductRepo productRepo;
 
     @Autowired
-    private CartItemRepo orderProductRepo;
+    private OrderItemRepo orderItemRepo;
 
     @Autowired
-    private CartRepo cartRepo;
+    private OrderRepo orderRepo;
 
 
     @Override
     @Transactional
-    public Cart CreateOrder(CartDTO cartDTO)   {
+    public Order CreateOrder(OrderDTO orderDTO)   {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(email);
 
@@ -50,12 +50,12 @@ public class OrderServiceImpl implements OrderService {
         if (customer == null) {
             throw new RuntimeException("customer not found or you are not logged in");
         }
-        List<CartItem> cartItemList = new ArrayList<>();
+        List<OrderItem> orderItemList = new ArrayList<>();
 
-        List<CartItemDTO> productDTOS = cartDTO.getProducts();
+        List<OrderItemDTO> productDTOS = orderDTO.getProducts();
 
-        Cart cart = new Cart();
-        for (CartItemDTO opd : productDTOS) {
+        Order order = new Order();
+        for (OrderItemDTO opd : productDTOS) {
             Long id = opd.getId();
             Long quantity = opd.getQuantity();
 
@@ -70,51 +70,51 @@ public class OrderServiceImpl implements OrderService {
             product.setNumOfSoldUnits(product.getNumOfSoldUnits()+quantity);
             productRepo.saveAndFlush(product);
 
-            CartItem cartItem = productCartItemMapper.ProductToCartItem(product);
+            OrderItem orderItem = productCartItemMapper.ProductToCartItem(product);
 
-            cartItem.setQuantity(quantity);
+            orderItem.setQuantity(quantity);
 
-            System.out.println("1 " + cartItem);
-            orderProductRepo.flush();
-            CartItem cartItem2 = orderProductRepo.save(cartItem);
-            orderProductRepo.flush();
-            System.out.print("2 " + cartItem2);
-            cartItemList.add(cartItem2);
+            System.out.println("1 " + orderItem);
+            orderItemRepo.flush();
+            OrderItem orderItem2 = orderItemRepo.save(orderItem);
+            orderItemRepo.flush();
+            System.out.print("2 " + orderItem2);
+            orderItemList.add(orderItem2);
         }
-        cart.setCartItems(cartItemList); //add to cart
+        order.setOrderItems(orderItemList); //add to cart
 
-        cart = cartRepo.save(cart);
+        order = orderRepo.save(order);
 
-        List<Cart> cartList = customer.getCarts(); //add to customer
-        if (cartList == null) {
-            cartList = new ArrayList<>();
+        List<Order> orderList = customer.getOrders(); //add to customer
+        if (orderList == null) {
+            orderList = new ArrayList<>();
         }
 
-        cartList.add(cart);
-        customer.setCarts(cartList);
+        orderList.add(order);
+        customer.setOrders(orderList);
         customerRepo.save(customer);
-        return cart;
+        return order;
     }
 
     @Override
-    public List<Cart> getMyOrders() {
+    public List<Order> getMyOrders() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(email);
 
         Customer customer = customerRepo.findByEmail(email).orElse(null);
         System.out.println(customer);
-        return customer.getCarts();
+        return customer.getOrders();
     }
 
     @Override
-    public Cart getOrder(Long id) {
+    public Order getOrder(Long id) {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(email);
 
         Customer customer = customerRepo.findByEmail(email).orElse(null);
         System.out.println(customer);
 
-        return customer.getCarts().stream()
+        return customer.getOrders().stream()
                 .filter(cart -> {
                     return cart.getId() == id;
                 }).findFirst().orElse(null);

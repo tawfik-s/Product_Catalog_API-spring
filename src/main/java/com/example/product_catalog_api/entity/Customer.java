@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -20,14 +21,18 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Size(min = 4, max = 255, message
+            = "email must be between 4 and 200 characters")
     private String email;
 
+    @Size(min = 4, max = 255, message
+            = "password must be between 4 and 200 characters")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name="customer_cart",joinColumns = {@JoinColumn(name="user_id")},
 //            inverseJoinColumns = {@JoinColumn(name="cart_id")})
-    private List<Cart> carts;
+    private List<Order> orders;
 
 }

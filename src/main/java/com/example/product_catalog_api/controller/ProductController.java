@@ -7,6 +7,7 @@ import com.example.product_catalog_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,12 +26,12 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public Product addProduct(@RequestBody ProductDTO productDTO){
+    public Product addProduct(@Valid @RequestBody ProductDTO productDTO){
         return productService.addProduct(productDTO);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@RequestBody ProductDTO productDTO,@PathVariable Long id){
+    public Product updateProduct(@Valid @RequestBody ProductDTO productDTO,@PathVariable Long id){
         return productService.updateProduct(productDTO,id);
     }
 

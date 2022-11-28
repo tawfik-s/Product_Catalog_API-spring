@@ -9,7 +9,6 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto {
-    private String name;
-    private List<Long> productsIds;
+public class OrderDTO {
+    private List<OrderItemDTO> products;
 }
