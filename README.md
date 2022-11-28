@@ -9,26 +9,48 @@ API for E commerce app from Requirement document
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/30ef984c008334ca9696?action=collection%2Fimport)
 
 
-### prepare local docker instance for ORACLEDB:XE 21
-
-[How to create oracle docker image](https://github.com/oracle/docker-images/tree/main/OracleDatabase/SingleInstance)
+### prepare local docker instance for mysql
 
 ```shell
- docker run --name oracle19 
- -p 1521:1521 -p 5500:5500 
- -e ORACLE_PWD=system 
- -v E:/docker/oraclexedatabase:/opt/oracle/oradata 
- 6ca1a57e059ad388721234dbcacfcb2e1bd3c60c140ed2a24be32a9e99d1d504
-#last number is the image id 
+ docker run --name mysql1 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root  mysql:latest
 ```
+
+[//]: # ([How to create oracle docker image]&#40;https://github.com/oracle/docker-images/tree/main/OracleDatabase/SingleInstance&#41;)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # ( docker run --name oracle19 )
+
+[//]: # ( -p 1521:1521 -p 5500:5500 )
+
+[//]: # ( -e ORACLE_PWD=system )
+
+[//]: # ( -v E:/docker/oraclexedatabase:/opt/oracle/oradata )
+
+[//]: # ( 6ca1a57e059ad388721234dbcacfcb2e1bd3c60c140ed2a24be32a9e99d1d504)
+
+[//]: # (#last number is the image id )
+
+[//]: # (```)
 ### database config 
 modify the properties file
 
 ```properties
-spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
-spring.datasource.username=system
-spring.datasource.password=system
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/product_catalog_api
 ```
+
+[//]: # (```properties)
+
+[//]: # (spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe)
+
+[//]: # (spring.datasource.username=system)
+
+[//]: # (spring.datasource.password=system)
+
+[//]: # (```)
 ### project entity diagram
 
 ![entity diagram](./images/entity%20diagram.png)
