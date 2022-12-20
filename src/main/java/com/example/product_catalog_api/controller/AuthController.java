@@ -30,6 +30,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public Map<String, Object> registerHandler(@Valid @RequestBody Customer customer){
+        boolean persist= customerRepo.findByEmail(customer.getEmail()).isPresent();
+       if(persist){
+           throw new RuntimeException("duplicated intern");
+       }
+
         String encodedPass = passwordEncoder.encode(customer.getPassword());
 
         customer.setPassword(encodedPass);

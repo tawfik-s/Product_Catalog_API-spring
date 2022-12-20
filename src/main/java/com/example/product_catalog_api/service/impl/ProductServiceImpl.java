@@ -1,5 +1,6 @@
 package com.example.product_catalog_api.service.impl;
 
+import com.example.product_catalog_api.Exceptions.ProductNotfoundException;
 import com.example.product_catalog_api.entity.Category;
 import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.mapper.ProductProductDTOMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(ProductDTO productDTO, Long id) {
-        Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("not correct product id"));
+        Product product = productRepo.findById(id).orElseThrow(ProductNotfoundException::new);
         Product newProduct = productProductDTOMapper.ProductDTOToProduct(productDTO);
         newProduct.setId(id);
         newProduct.setNumOfSoldUnits(product.getNumOfSoldUnits());
@@ -67,6 +69,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) {
+        categoryRepo.findAll().forEach(
+                category -> category.getProducts().removeIf(product -> Objects.equals(product.getId(), productId)));
+
         productRepo.deleteById(productId);
     }
 }

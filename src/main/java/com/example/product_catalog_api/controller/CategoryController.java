@@ -3,6 +3,7 @@ package com.example.product_catalog_api.controller;
 import com.example.product_catalog_api.entity.Category;
 import com.example.product_catalog_api.entity.Product;
 import com.example.product_catalog_api.model.CategoryDTO;
+import com.example.product_catalog_api.model.ReturnedCategoryDTO;
 import com.example.product_catalog_api.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,13 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public List<Category> getAllCategories( ){
+    @CrossOrigin
+    public List<ReturnedCategoryDTO> getAllCategories( ){
         return categoryService.getAllCategories();
     }
 
     @PostMapping
+    @CrossOrigin
     public Category addCategory(@Valid @RequestBody CategoryDTO categoryDto){
         return categoryService.addCategory(categoryDto.getName());
     }
@@ -34,11 +37,15 @@ public class CategoryController {
 //    }
 
     @GetMapping("/{id}")
+    @CrossOrigin
     public List<Product> getAllProductsInCategory(@PathVariable Long id){
         return categoryService.getAllProductsInCategory(id);
     }
 
+
+
     @DeleteMapping("/{id}")
+    @CrossOrigin
     public void deleteCategory(@PathVariable Long id){
         categoryService.deleteCategory(id);
     }

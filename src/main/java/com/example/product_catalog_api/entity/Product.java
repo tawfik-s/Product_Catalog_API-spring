@@ -33,6 +33,7 @@ public class Product {
 
     private Long numOfSoldUnits;
 
+    @Column(columnDefinition="LONGBLOB")
     private String image;
 
 

@@ -29,6 +29,7 @@ public class OrderItem {
 
     private Long quantity;
 
+    @Column(columnDefinition="LONGBLOB")
     private String image;
 
 }
