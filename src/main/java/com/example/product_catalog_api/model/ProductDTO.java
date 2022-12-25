@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 @ToString
 public class ProductDTO {
 
-    @Size(min = 4, max = 255, message
-            = "nameEn must be between 4 and 200 characters")
+    @Size(min = 2, max = 255, message
+            = "nameEn must be between 2 and 200 characters")
     private String nameEn;
 
-    @Size(min = 4, max = 255, message
-            = "nameAr must be between 4 and 200 characters")
+    @Size(min = 2, max = 255, message
+            = "nameAr must be between 2 and 200 characters")
     private String nameAr;
 
     private Long limitQuantity;
@@ -30,8 +30,8 @@ public class ProductDTO {
     @NotNull
     private Long quantity;
 
-    @Size( max = 500, message
-            = "email must be between 4 and 200 characters")
+//    @Size( max = 500, message
+//            = "email must be between 4 and 200 characters")
     private String image;
 
 }

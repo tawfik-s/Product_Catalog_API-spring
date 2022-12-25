@@ -21,11 +21,13 @@ public class ProductController {
     }
 
     @GetMapping("/")
+    @CrossOrigin
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
     @PostMapping("/")
+    @CrossOrigin
     public Product addProduct(@Valid @RequestBody ProductDTO productDTO){
         return productService.addProduct(productDTO);
     }
@@ -36,6 +38,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin
     public void deleteProduct(@PathVariable Long id){
         productService.deleteProduct(id);
     }

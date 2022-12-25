@@ -20,16 +20,19 @@ public class OrderController {
     }
 
     @PostMapping("/")
+    @CrossOrigin
     public Order addOrder(@RequestBody OrderDTO orderDTO){
         return orderService.CreateOrder(orderDTO);
     }
 
     @GetMapping("/")
+    @CrossOrigin
     public List<Order> getOrders(){
         return orderService.getMyOrders();
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin
     public Order getSingleOrder(@PathVariable Long id){
         return orderService.getOrder(id);
     }

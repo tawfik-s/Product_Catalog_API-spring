@@ -1,7 +1,10 @@
 package com.example.product_catalog_api.service.impl;
 
+import com.example.product_catalog_api.Exceptions.CategoryNotfoundException;
+import com.example.product_catalog_api.Exceptions.ProductNotfoundException;
 import com.example.product_catalog_api.entity.Category;
 import com.example.product_catalog_api.entity.Product;
+import com.example.product_catalog_api.model.ReturnedCategoryDTO;
 import com.example.product_catalog_api.repository.CategoryRepo;
 import com.example.product_catalog_api.repository.ProductRepo;
 import com.example.product_catalog_api.service.CategoryService;
@@ -27,8 +30,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepo.findAll();
+    public List<ReturnedCategoryDTO> getAllCategories() {
+        List<ReturnedCategoryDTO> result=new ArrayList<>();
+        categoryRepo.findAll().stream().forEach((category )->{
+            ReturnedCategoryDTO temp=new ReturnedCategoryDTO();
+            temp.setId(category.getId());
+            temp.setName(category.getName());
+            result.add(temp);
+        });
+         return result;
     }
 
     @Override
@@ -39,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Product> myProductList=new ArrayList<>();
         for(Long productId: productIds){
             Product pro =productRepo.findById(productId)
-                    .orElseThrow(()->new RuntimeException("not found product id"+productId));
+                    .orElseThrow(ProductNotfoundException::new);
             myProductList.add(pro);
         }
         category.setProducts(myProductList);
@@ -50,9 +60,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category addProductToCategory(Long productId, Long categoryId) {
        Category category= categoryRepo.findById(categoryId)
-               .orElseThrow(()->new RuntimeException("can't find Category"+categoryId));
+               .orElseThrow(CategoryNotfoundException::new);
        Product pro=productRepo.findById(productId) //check if it's exist
-               .orElseThrow(()->new RuntimeException("not found product id"+productId));
+               .orElseThrow(ProductNotfoundException::new);
         category.getProducts().add(pro);
         return category;
     }
@@ -60,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Product> getAllProductsInCategory(Long categoryId) {
         Category category= categoryRepo.findById(categoryId)
-                .orElseThrow(()->new RuntimeException("can't find Category"+categoryId));
+                .orElseThrow(CategoryNotfoundException::new);
         return category.getProducts();
     }
 
